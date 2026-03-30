@@ -1,0 +1,77 @@
+:root {
+  --bg: #f5f7fb;
+  --card: #ffffff;
+  --text: #1f2937;
+  --muted: #6b7280;
+  --line: #e5e7eb;
+  --primary: #0f62fe;
+  --success: #15803d;
+  --danger: #b91c1c;
+  --warn: #92400e;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: var(--text);
+  background: var(--bg);
+}
+.container { width: min(1120px, calc(100% - 32px)); margin: 0 auto; }
+.topbar { background: #0b1220; color: #fff; }
+.topbar-inner { display: flex; justify-content: space-between; align-items: center; min-height: 64px; gap: 24px; }
+.brand { color: #fff; text-decoration: none; font-weight: 800; }
+nav a { color: #dbeafe; text-decoration: none; margin-left: 16px; }
+.main-content { padding: 28px 0 40px; }
+.hero { display: grid; grid-template-columns: 1.4fr 1fr; gap: 24px; align-items: start; }
+.badge { display: inline-block; background: #dbeafe; color: #1d4ed8; padding: 6px 12px; border-radius: 999px; font-size: 14px; }
+h1,h2,h3 { margin-top: 0; }
+.card, .panel { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 24px; box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05); }
+.narrow { max-width: 760px; margin: 0 auto; }
+.center { text-align: center; }
+.form-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+.form-grid .full { grid-column: 1 / -1; }
+label { display: grid; gap: 8px; font-weight: 600; }
+input, textarea, select {
+  width: 100%; border: 1px solid #cbd5e1; border-radius: 12px; padding: 12px 14px;
+  font: inherit; background: #fff;
+}
+textarea { resize: vertical; }
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  border: 1px solid var(--line); background: #fff; color: var(--text);
+  border-radius: 12px; padding: 12px 16px; text-decoration: none; cursor: pointer; font-weight: 700;
+}
+.btn.primary { background: var(--primary); color: #fff; border-color: var(--primary); }
+.btn.success { background: var(--success); color: #fff; border-color: var(--success); }
+.btn.danger { background: var(--danger); color: #fff; border-color: var(--danger); }
+.actions { display: flex; gap: 12px; }
+.actions.split { justify-content: space-between; }
+.cta-row, .inline-links, .inline-form { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+.clean-list { margin: 0; padding-left: 18px; }
+.muted { color: var(--muted); }
+.reference-code {
+  display: inline-block; font-size: 28px; font-weight: 800; background: #eff6ff; color: #1d4ed8;
+  border-radius: 16px; padding: 14px 20px; margin: 12px 0 18px;
+}
+.stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 20px; }
+.stat-card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 20px; }
+.stat-card span { display: block; color: var(--muted); margin-bottom: 8px; }
+.stat-card strong { font-size: 32px; }
+.table-wrap { overflow: auto; }
+table { width: 100%; border-collapse: collapse; }
+th, td { padding: 14px 12px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { background: #f8fafc; }
+.page-head { display: flex; justify-content: space-between; gap: 16px; align-items: center; flex-wrap: wrap; margin-bottom: 18px; }
+.flash-stack { display: grid; gap: 10px; margin-bottom: 20px; }
+.flash { padding: 14px 16px; border-radius: 12px; font-weight: 600; }
+.flash.success { background: #dcfce7; color: #166534; }
+.flash.error { background: #fee2e2; color: #991b1b; }
+.status { display: inline-flex; padding: 6px 10px; border-radius: 999px; font-size: 12px; font-weight: 800; text-transform: uppercase; }
+.status.pending { background: #fffbeb; color: var(--warn); }
+.status.approved { background: #dcfce7; color: #166534; }
+.status.rejected { background: #fee2e2; color: #991b1b; }
+.review-layout, .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.highlight { border: 2px solid #bfdbfe; background: #f8fbff; }
+@media (max-width: 860px) {
+  .hero, .review-layout, .two-col, .stats-grid, .form-grid { grid-template-columns: 1fr; }
+}

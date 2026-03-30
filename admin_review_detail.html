@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="page-head">
+  <h1>ตรวจสอบรายการ {{ row.receipt_code }}</h1>
+  <a href="{{ url_for('admin_reviews', status='pending') }}">กลับ</a>
+</div>
+
+<div class="review-layout">
+  <div class="card">
+    <h3>ข้อมูลลูกค้า</h3>
+    <p><strong>ชื่อ:</strong> {{ row.full_name }}</p>
+    <p><strong>โทร:</strong> {{ row.phone }}</p>
+    <p><strong>อีเมล:</strong> {{ row.email or '-' }}</p>
+    <hr>
+    <p><strong>วันที่ซื้อ:</strong> {{ row.purchase_date }}</p>
+    <p><strong>ยอดที่ลูกค้าแจ้ง:</strong> {{ '%.2f'|format(row.amount_submitted) }} บาท</p>
+    <p><strong>ร้านค้า:</strong> {{ row.store_name or '-' }}</p>
+    <p><strong>หมายเหตุลูกค้า:</strong> {{ row.note or '-' }}</p>
+    <p><strong>สถานะ:</strong> <span class="status {{ row.status }}">{{ row.status }}</span></p>
+    <p><a href="{{ url_for('uploaded_file', filename=row.file_name) }}" target="_blank">เปิดไฟล์ใบเสร็จ</a></p>
+  </div>
+
+  <div class="card">
+    <h3>ยืนยันโดยแอดมิน</h3>
+    <form method="post" class="form-grid">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      <label>ยอดอนุมัติ (บาท)
+        <input type="number" name="amount_approved" step="0.01" min="0.01" value="{{ row.amount_submitted }}">
+      </label>
+      <label class="full">หมายเหตุแอดมิน
+        <textarea name="admin_note" rows="5">{{ row.admin_note or '' }}</textarea>
+      </label>
+      <div class="full actions split">
+        <button class="btn success" type="submit" name="action" value="approve">อนุมัติรายการ</button>
+        <button class="btn danger" type="submit" name="action" value="reject">ไม่อนุมัติ</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

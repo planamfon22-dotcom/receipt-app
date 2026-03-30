@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card narrow center">
+  <h1>ส่งข้อมูลเรียบร้อย</h1>
+  <p>เลขอ้างอิงของคุณคือ</p>
+  <div class="reference-code">{{ receipt_code }}</div>
+  <p class="muted">แอดมินจะตรวจสอบใบเสร็จก่อนนำยอดไปสะสมในรอบเดือน</p>
+  <a class="btn primary" href="{{ url_for('submit_receipt') }}">ส่งใบเสร็จอีกใบ</a>
+</div>
+{% endblock %}

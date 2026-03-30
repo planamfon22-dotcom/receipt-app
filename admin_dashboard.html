@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="page-head">
+  <h1>แดชบอร์ดแอดมิน</h1>
+  <div class="inline-links">
+    <a href="{{ url_for('admin_reviews', status='pending') }}">ตรวจสอบรายการ</a>
+    <a href="{{ url_for('admin_monthly_summary') }}">สรุปยอดรายเดือน</a>
+    <a href="{{ url_for('admin_draw') }}">สุ่มผู้โชคดี</a>
+  </div>
+</div>
+
+<div class="stats-grid">
+  <div class="stat-card"><span>รอตรวจสอบ</span><strong>{{ stats.pending }}</strong></div>
+  <div class="stat-card"><span>อนุมัติแล้ว</span><strong>{{ stats.approved }}</strong></div>
+  <div class="stat-card"><span>ไม่ผ่าน</span><strong>{{ stats.rejected }}</strong></div>
+  <div class="stat-card"><span>จำนวนลูกค้า</span><strong>{{ stats.customers }}</strong></div>
+</div>
+
+<div class="card">
+  <h2>รายการล่าสุด</h2>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>เวลา</th>
+          <th>ลูกค้า</th>
+          <th>ยอดที่แจ้ง</th>
+          <th>สถานะ</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in recent %}
+        <tr>
+          <td>{{ row.submitted_at }}</td>
+          <td>{{ row.full_name }}<br><span class="muted">{{ row.phone }}</span></td>
+          <td>{{ '%.2f'|format(row.amount_submitted) }}</td>
+          <td><span class="status {{ row.status }}">{{ row.status }}</span></td>
+          <td><a href="{{ url_for('admin_review_detail', receipt_id=row.id) }}">เปิดดู</a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

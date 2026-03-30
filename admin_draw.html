@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="page-head">
+  <h1>สุ่มผู้โชคดี</h1>
+</div>
+
+<div class="card">
+  <form method="post" class="form-grid">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <label>เดือนสะสม
+      <input type="month" name="month" value="{{ month }}">
+    </label>
+    <label>กลุ่มยอดสะสม
+      <select name="tier_name">
+        {% for tier in tiers %}
+          <option value="{{ tier }}" {% if tier == tier_name %}selected{% endif %}>{{ tier }}</option>
+        {% endfor %}
+      </select>
+    </label>
+    <label>จำนวนผู้โชคดี
+      <input type="number" name="winner_count" value="{{ winner_count }}" min="1">
+    </label>
+    <div class="full actions">
+      <button class="btn primary" type="submit">สุ่มรายชื่อ</button>
+    </div>
+  </form>
+</div>
+
+<div class="two-col">
+  <div class="card">
+    <h3>ผู้มีสิทธิ์ในกลุ่มนี้ ({{ pool|length }})</h3>
+    <ul class="clean-list">
+      {% for row in pool %}
+        <li>{{ row.full_name }} — {{ row.phone }} — {{ '%.2f'|format(row.total_amount) }} บาท</li>
+      {% else %}
+        <li class="muted">ยังไม่มีผู้มีสิทธิ์</li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <div class="card highlight">
+    <h3>ผลการสุ่ม</h3>
+    <ol>
+      {% for row in winners %}
+        <li><strong>{{ row.full_name }}</strong> ({{ row.phone }}) — {{ '%.2f'|format(row.total_amount) }} บาท</li>
+      {% else %}
+        <li class="muted">กดสุ่มเพื่อแสดงผล</li>
+      {% endfor %}
+    </ol>
+  </div>
+</div>
+{% endblock %}

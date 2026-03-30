@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card narrow">
+  <h1>ส่งใบเสร็จเข้าร่วมกิจกรรม</h1>
+  <p class="muted">กรอกข้อมูลให้ครบ แล้วกดส่ง ระบบจะส่งให้แอดมินตรวจสอบก่อนนับยอดสะสม</p>
+  <form method="post" enctype="multipart/form-data" class="form-grid">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <label>ชื่อ-นามสกุล
+      <input type="text" name="full_name" required>
+    </label>
+    <label>เบอร์โทร
+      <input type="text" name="phone" required>
+    </label>
+    <label>อีเมล (ถ้ามี)
+      <input type="email" name="email">
+    </label>
+    <label>วันที่ซื้อ
+      <input type="date" name="purchase_date" required>
+    </label>
+    <label>ยอดซื้อ (บาท)
+      <input type="number" name="amount" min="0.01" step="0.01" required>
+    </label>
+    <label>ร้านค้า / สาขา
+      <input type="text" name="store_name">
+    </label>
+    <label class="full">อัปโหลดใบเสร็จ
+      <input type="file" name="receipt_file" accept=".png,.jpg,.jpeg,.webp,.pdf" required>
+    </label>
+    <label class="full">หมายเหตุเพิ่มเติม
+      <textarea name="note" rows="4"></textarea>
+    </label>
+    <div class="full actions">
+      <button class="btn primary" type="submit">ส่งข้อมูล</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="page-head">
+  <h1>สรุปยอดสะสมรายเดือน</h1>
+  <form method="get" class="inline-form">
+    <input type="month" name="month" value="{{ month }}">
+    <button class="btn primary" type="submit">ดูข้อมูล</button>
+    <a class="btn" href="{{ url_for('export_monthly_csv', month=month) }}">Export CSV</a>
+  </form>
+</div>
+
+<div class="card">
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>ลูกค้า</th>
+          <th>เบอร์โทร</th>
+          <th>จำนวนใบเสร็จ</th>
+          <th>ยอดสะสม</th>
+          <th>กลุ่ม</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in rows %}
+        <tr>
+          <td>{{ row.full_name }}</td>
+          <td>{{ row.phone }}</td>
+          <td>{{ row.receipt_count }}</td>
+          <td>{{ '%.2f'|format(row.total_amount) }}</td>
+          <td>{{ row.tier }}</td>
+        </tr>
+        {% else %}
+        <tr><td colspan="5" class="center muted">ยังไม่มีรายการอนุมัติในเดือนนี้</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

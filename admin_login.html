@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card narrow">
+  <h1>เข้าสู่ระบบแอดมิน</h1>
+  <form method="post" class="form-grid">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <label>Username
+      <input type="text" name="username" required>
+    </label>
+    <label>Password
+      <input type="password" name="password" required>
+    </label>
+    <div class="full actions">
+      <button class="btn primary" type="submit">เข้าสู่ระบบ</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

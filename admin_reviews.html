@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="page-head">
+  <h1>ตรวจสอบใบเสร็จ</h1>
+  <div class="inline-links">
+    <a href="{{ url_for('admin_reviews', status='pending') }}">Pending</a>
+    <a href="{{ url_for('admin_reviews', status='approved') }}">Approved</a>
+    <a href="{{ url_for('admin_reviews', status='rejected') }}">Rejected</a>
+  </div>
+</div>
+
+<div class="card">
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>รหัส</th>
+          <th>ลูกค้า</th>
+          <th>วันที่ซื้อ</th>
+          <th>ยอดที่แจ้ง</th>
+          <th>สถานะ</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in rows %}
+        <tr>
+          <td>{{ row.receipt_code }}</td>
+          <td>{{ row.full_name }}<br><span class="muted">{{ row.phone }}</span></td>
+          <td>{{ row.purchase_date }}</td>
+          <td>{{ '%.2f'|format(row.amount_submitted) }}</td>
+          <td><span class="status {{ row.status }}">{{ row.status }}</span></td>
+          <td><a href="{{ url_for('admin_review_detail', receipt_id=row.id) }}">ตรวจสอบ</a></td>
+        </tr>
+        {% else %}
+        <tr><td colspan="6" class="center muted">ไม่พบข้อมูล</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
